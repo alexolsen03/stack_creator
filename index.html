@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
+
+		<script src="app.js"></script>
+		<script src="controller.js"></script>
+		<script src="directives.js"></script>
+
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="home.css"/>
+	</head>
+	<body ng-app="StackCreator" ng-controller="MainController">
+		<div class='container inner-wrapper'>
+			<div class='row'>
+				<div class='col col8'>
+					<div class='row'>
+						<div class='col col12'>
+							<div class='row'>
+								<div class='col col12'>
+						    		<input ng-model='stackName' placeholder='Stack Name' class='stack-name-input' type="text" /><br /><br />
+						    	</div>
+						    	<div class='clearme'></div>
+						    </div>
+						    <div class='row'>
+						    	<div class='col col6'>
+									<input ng-model='frontText' placeholder='Front'      type="text" class='card-input' />
+								</div>
+								<div class='col col6'>
+									<input ng-model='backText'  placeholder='Back'       type="text" class='card-input' /><br /><br />
+								</div>
+								<div class='clearme'></div>
+							</div>
+						</div>
+						<div class='clearme'></div>
+					</div>
+					<div class='row'>
+						<div class='col col12'>
+							<div ng-hide="frontText == '' || backText == ''">
+								<button ng-click='saveCard()' class='btn'>Include Card</button>
+								<br /><br />
+							</div>
+							<div>
+								<button ng-click='saveStack()' class='btn'>Submit Stack</button>
+							</div>
+							<div ng-repeat='activeCard in activeCards' ng-click='flipCard($index)' 
+								 ng-class="{'active-card-front': !activeCard.showFront, 'active-card-back': activeCard.showFront}" 
+								 class='active-study-card'>
+								<div ng-show='!activeCard.showFront'>
+									{{ activeCard.front_text }}
+								</div>
+								<div ng-show='activeCard.showFront'>
+									{{ activeCard.back_text}}
+								</div>
+							</div>
+						</div>
+						<div class='clearme'></div>
+					</div>
+				</div>
+				<div class='col col4 center-me'>
+					<div ng-repeat='stack in stacks' class='center-me card-box' ng-class="{'active-stack': stack.isActive}"
+						 ng-click= 'swapActive($index)'>
+						{{ stack.name }}
+					</div>
+				</div>
+				<div class='clearme'></div>
+			</div>
+		</div>
+	</body>
+</html>
